@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<head>
+    {% include 'templates/head.html' %}
+</head>
+<html>
+    <body>
+        <div class="container">
+            <h1>Edit Card</h1>
+            <br/>
+            <br/>
+            {% autoescape true %}
+            <div>
+                <form action="{{upload}}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="CardID" value="{{card.ID}}"/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Card Name</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text>" name="CardName" value="{{card.CardName}}" />
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Card Type</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <select id="selCardType" class="form-control" name="CardType">
+                                <option>Occupation</option>
+                                <option>Minor Improvement</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Card Text</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text>" name="CardText" value="{{card.CardText}}" />
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Difficulty</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="selDifficulty" name="Difficulty">
+                                <option>Easy</option>
+                                <option>Intermediate</option>
+                                <option>Komplex</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Minimum Players</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="selMinPlayers" name="MinPlayers">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Rulings</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <textarea class="form-control" name="Rulings" rows="4">{{card.Rulings}}</textarea>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Card Image</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <img class="preview-image img-thumbnail" src="{{card.CardImageURL}}"  />
+                            <br/>
+                            <br/>
+                            <input type="file" name="CardImage"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-6 center">
+                            <button class="btn btn-primary" type="submit">Save Changes</button> 
+                        </div>
+                    </div>
+                <form>
+            </div>
+        </div>
+        {% include 'templates/scripts.html' %}
+        {% endautoescape %}
+        <script type="text/javascript">
+            var success = GetURLParameter("Success");
+            var cardName = GetURLParameter("CardName");
+            cardName = decodeURIComponent(cardName);
+            if (success) {
+                alert(cardName + " added successfully")
+            }
+            $("#selCardType")[0].value = "{{card.CardType}}";
+            $("#selDifficulty")[0].value = "{{card.Difficulty}}";
+            $("#selMinPlayers")[0].value = "{{card.MinPlayers}}";
+
+        </script>
+    </body>
+</html>

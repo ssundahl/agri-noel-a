@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+	{% include 'templates/head.html' %}
+</head>
+{% autoescape true %}
+<html>
+	<body>
+		<div class="container">
+			{% include 'templates/header.html' %}
+			<h3>Admin Stuff</h3>
+			<ul>
+				<li>
+					<a href="/GetCards">Get Cards</a>
+				</li>
+				<li>
+					<a href="/AddCard">Add Cards</a>
+				</li>
+			</ul>
+			<hr>
+			<ul>
+				<li>
+					<a href="/GetPlayers">Get Players</a>
+				</li>
+				<li>
+					<a href="/AddPlayer/0">Add Players</a>
+				</li>
+			</ul>
+			<hr>
+			<ul>
+				<li>
+					<a href="/GetGames">Get Games</a>
+				</li>
+				<li>
+					<a href="/AddGame">Create a Game</a>
+				</li>
+			</ul>
+
+
+		</div>
+		{% include 'templates/scripts.html' %}
+	</body>
+</html>
+{% endautoescape %}

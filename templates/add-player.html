@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+    {% include 'templates/head.html' %}
+</head>
+<html>
+    <body>
+        <div class="container">
+            <h1>{% if PlayerID == "0" %}Add A Player{% else %}Edit {{PlayerName}}{% endif %}</h1>
+            <br/>
+            <br/>
+            {% autoescape true %}
+            <div>
+                <form action="/AddPlayer" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="PlayerID" value="{{PlayerID}}" />
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Player Name</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text>" name="PlayerName" value="{{PlayerName}}" />
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Player Email</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text>" name="PlayerEmail" value="{{PlayerEmail}}" />
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-6 center">
+                            <button class="btn btn-primary" type="submit">{% if PlayerID == "0" %}Add{% else %}Edit{% endif %} Player</button> 
+                        </div>
+                    </div>
+                <form>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div class="center row">
+                <div class="col-sm-4">
+                    <a class="btn btn-success" href="/AddPlayer/0">Add A New Player</a>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn btn-success" href="/GetPlayers">View All Players</a>
+                </div>
+            </div>
+        </div>
+        {% include 'templates/scripts.html' %}
+        {% endautoescape %}
+        <script type="text/javascript">
+            var success = GetURLParameter("Success");
+            var edit = GetURLParameter("Edit");
+            if (success) {
+                var playerName = GetURLParameter("PlayerName");
+                playerName = decodeURIComponent(playerName);
+                var message = ((edit === "true") ? " edited" : " added") + " successfully";
+                alert(playerName + message)
+            }
+        </script>
+    </body>
+</html>

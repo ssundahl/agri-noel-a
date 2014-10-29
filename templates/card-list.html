@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<head>
+	{% include 'templates/head.html' %}
+</head>
+{% autoescape true %}
+<html>
+	<body>
+		<div class="container">
+			<h1>Cards</h1>
+			<br/>
+			<br/>
+			<div class="row">
+				<form method="post" action="/GetCards">
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>
+									Card Name
+								</th>
+								<th>
+									Card Type
+								</th>
+								<th>
+									Difficulty
+								</th>
+								<th>
+									Minimum Players
+								</th>
+							</tr>
+							<tr>
+								<td>
+									<select name="CardNameLetter">
+										<option>All</option>
+										<option {% if PostData.CardName == 'A' %}Selected{% endif %}>A</option>
+										<option {% if PostData.CardName == 'B' %}Selected{% endif %}>B</option>
+										<option {% if PostData.CardName == 'C' %}Selected{% endif %}>C</option>
+										<option {% if PostData.CardName == 'D' %}Selected{% endif %}>D</option>
+										<option {% if PostData.CardName == 'E' %}Selected{% endif %}>E</option>
+										<option {% if PostData.CardName == 'F' %}Selected{% endif %}>F</option>
+										<option {% if PostData.CardName == 'G' %}Selected{% endif %}>G</option>
+										<option {% if PostData.CardName == 'H' %}Selected{% endif %}>H</option>
+										<option {% if PostData.CardName == 'I' %}Selected{% endif %}>I</option>
+										<option {% if PostData.CardName == 'J' %}Selected{% endif %}>J</option>
+										<option {% if PostData.CardName == 'K' %}Selected{% endif %}>K</option>
+										<option {% if PostData.CardName == 'L' %}Selected{% endif %}>L</option>
+										<option {% if PostData.CardName == 'M' %}Selected{% endif %}>M</option>
+										<option {% if PostData.CardName == 'N' %}Selected{% endif %}>N</option>
+										<option {% if PostData.CardName == 'O' %}Selected{% endif %}>O</option>
+										<option {% if PostData.CardName == 'P' %}Selected{% endif %}>P</option>
+										<option {% if PostData.CardName == 'Q' %}Selected{% endif %}>Q</option>
+										<option {% if PostData.CardName == 'R' %}Selected{% endif %}>R</option>
+										<option {% if PostData.CardName == 'S' %}Selected{% endif %}>S</option>
+										<option {% if PostData.CardName == 'T' %}Selected{% endif %}>T</option>
+										<option {% if PostData.CardName == 'U' %}Selected{% endif %}>U</option>
+										<option {% if PostData.CardName == 'V' %}Selected{% endif %}>V</option>
+										<option {% if PostData.CardName == 'W' %}Selected{% endif %}>W</option>
+										<option {% if PostData.CardName == 'X' %}Selected{% endif %}>X</option>
+										<option {% if PostData.CardName == 'Y' %}Selected{% endif %}>Y</option>
+										<option {% if PostData.CardName == 'Z' %}Selected{% endif %}>Z</option>
+									</select>
+								</td>
+								<td>
+									<select name="CardType">
+										<option>All</option>
+										<option {% if PostData.CardType == 'Occupation' %}Selected{% endif %}>Occupation</option>
+										<option {% if PostData.CardType == 'Minor Improvement' %}Selected{% endif %}>Minor Improvement</option>
+									</select>
+								</td>
+								<td>
+									<select name="CardDifficulty">
+										<option>All</option>
+										<option {% if PostData.Difficulty == 'Easy' %}Selected{% endif %}>Easy</option>
+										<option {% if PostData.Difficulty == 'Intermediate' %}Selected{% endif %}>Intermediate</option>
+										<option {% if PostData.Difficulty == 'Komplex' %}Selected{% endif %}>Komplex</option>
+									</select>
+								</td>
+								<td>
+									<select name="CardMinPlayers">
+										<option>All</option>
+										<option {% if PostData.MinPlayers == '1' %}Selected{% endif %}>1</option>
+										<option {% if PostData.MinPlayers == '2' %}Selected{% endif %}>2</option>
+										<option {% if PostData.MinPlayers == '3' %}Selected{% endif %}>3</option>
+										<option {% if PostData.MinPlayers == '4' %}Selected{% endif %}>4</option>
+										<option {% if PostData.MinPlayers == '5' %}Selected{% endif %}>5</option>
+									</select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary left-10">Filter</button>
+				</form>
+			</div>
+			<br/>
+			<br/>
+			<p>
+				{% for card in Cards %}
+					<div class="row card-block">
+						<div class="col-sm-12">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="col-sm-4">
+										<a href="#{{card.TrimmedName}}"><span class="bold">Card Name:</span></a>
+									</div>
+									<div class="col-sm-8">
+										{{card.CardName}}
+									</div>
+									<br/>
+									<div class="col-sm-4">
+										<span class="bold">Card Type:</span>
+									</div>
+									<div class="col-sm-8">
+										{{card.CardType}}
+									</div>
+									<br/>
+									<div class="col-sm-4">
+										<span class="bold">Card Text:</span>
+									</div>
+									<div class="col-sm-8">
+										{{card.CardText}}
+									</div>
+									<br/>
+									<div class="col-sm-4">
+										<span class="bold">Difficulty:</span>
+									</div>
+									<div class="col-sm-8">
+										{{card.Difficulty}}
+									</div>
+									<br/>
+									<div class="col-sm-4">
+										<span class="bold">Minimum Players:</span>
+									</div>
+									<div class="col-sm-8">
+										{{card.MinPlayers}}
+									</div>
+									<br/>
+									<div class="col-sm-4">
+										<span class="bold">Rulings:</span>
+									</div>
+									<div class="col-sm-8">
+										<ul style="padding-left: 20px;">
+										{% if card.RulingsSplit %}
+											{% for ruling in card.RulingsSplit %}
+					  							<li>{{ruling}}</li>
+					  						{% endfor %}
+					  					{% endif %}
+				  						</ul>
+									</div>
+									<br/>
+									<br/>
+									<div class="col-sm-4">
+										<a href="/EditCard/{{card.ID}}" class="btn btn-primary">Edit Card</a>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<img class="preview-image img-thumbnail" src="{{card.CardImageURL}}" />
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				{% endfor %}
+			</p>
+		</div>
+		{% include 'templates/scripts.html' %}
+		<script type="text/javascript">
+			var hash = window.location.hash;
+			if (hash) {
+				$('html,body').animate({scrollTop: $('a[href$=' + hash + ']').offset().top - 20});
+			}
+		</script>
+	</body>
+</html>
+{% endautoescape %}

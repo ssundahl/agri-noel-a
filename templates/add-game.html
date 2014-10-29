@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+    {% include 'templates/head.html' %}
+</head>
+<html>
+    <body>
+        <div class="container">
+            <h1>Add A Game</h1>
+            <br/>
+            <br/>
+            {% autoescape true %}
+            <div>
+                <form action="/AddGame" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Game Identifier</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text>" name="PlayerName" value="{{GameID}}" />
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Select Players</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="selPlayers">
+                                {% for player in players %}
+                                    <option>{{player.PlayerName}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="">
+                            <button class="btn btn-default" type="button" onclick="addPlayer()">Add</button>
+                        </div>
+                        <div class="col-sm-6 center">
+                            <ul id="ulPlayers">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-6 center">
+                            <button class="btn btn-primary" type="submit">Add Game</button> 
+                        </div>
+                    <div>
+                <form>
+            </div>
+            <br/>
+        </div>
+        {% include 'templates/scripts.html' %}
+        {% endautoescape %}
+        <script type="text/javascript">
+            function addPlayer() {
+                var html = "<option>" + $("#selPlayers")[0].value + "</option>"
+                $("#ulPlayers").append(html);
+            }
+        </script>
+    </body>
+</html>
